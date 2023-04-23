@@ -10,19 +10,22 @@ void binarysearch(int  key, int * a)
    low=0;
    high=n-1;
 
-   while(low<high)
+   while(low<=high)
    {
       mid=(high+low)/2;
 
       if(*(a+mid)==key)
+      {
+         printf("THE SEARCH IS SUCCESFULL\n");
          return ;
+      }
       else if(*(a+mid)>key)
             high=mid-1;
        else
         low=mid+1;  
    }
 
-  // printf("THE SEARCH IS NOT SUCCESFULL\n");
+  printf("THE SEARCH IS NOT SUCCESFULL\n");
 }
 
 void main()
@@ -46,9 +49,7 @@ void main()
       }
         fprintf(d,"\n\n\n");
         st=clock();
-
-          binarysearch(-1,a);
-
+         binarysearch(-1,a);
         et=clock();
 
         double result=(et-st)/CLOCKS_PER_SEC;

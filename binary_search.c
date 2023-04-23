@@ -34,13 +34,13 @@ void main()
      g=fopen("graphbinary.txt","a");
      n=10;
      int k,j;
-     srand(time(NULL));
+    // srand(time(NULL));
 
      for(k=0;k<6;k++)
      {
     int * a=(int *)malloc(sizeof(int)*n);
      for(int i=0;i<n;i++)
-      {  *(a+i)=rand()%n+1;
+      {  *(a+i)=i+1;
           fprintf(d,"%d ",*(a+i));
           // printf(d,"%d ",*(a+i));
       }

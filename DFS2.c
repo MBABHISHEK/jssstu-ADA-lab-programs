@@ -94,7 +94,7 @@ printf("Enter the adjacency LIST \n");
             nn->next = g->adjLists[i];
             g->adjLists[i] = nn;
        }
-       else
+       else if(key!=0)
        {
         printf("Enter 1 to add and 0 to not \n");
        goto l1;

@@ -1,4 +1,4 @@
-/* program to implement merge sort*/
+/* program to implement merge sort and perfrom its analysis*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>

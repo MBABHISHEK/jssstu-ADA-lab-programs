@@ -111,7 +111,6 @@ printf("Enter the adjacency LIST \n");
        {
         printf("%c ",temp->info+65);
         temp=temp->next;
-        //printf("abhishek")
        }
      printf("\n");
    }

@@ -1,3 +1,5 @@
+/*program to implement the topological sorting with dfs on adjacency List */
+
 #include<stdio.h>
 #include<stdlib.h>
 

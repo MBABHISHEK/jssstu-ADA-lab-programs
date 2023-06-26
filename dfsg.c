@@ -9,8 +9,6 @@ int gcount=0;
 	int info;
 	struct node *next;
 	};
-	
-	
 	struct Graph{
 	int vertices;
 	int edges;
@@ -71,8 +69,7 @@ int gcount=0;
             gcount++;
 
 	}
-	
-	   void ploter(int k)
+	 void ploter(int k)
 	{
           FILE *fp1=fopen("dfsbest.txt","a");
           FILE *fp2=fopen("dfsworst.txt","a");
@@ -80,9 +77,6 @@ int gcount=0;
          for(int i=1;i<=10;i++)
        {
 	int n;
-        
-	//printf("ENTER THE NUUMBER OF VERTICES\n");
-	//scanf("%d",&n);
         n=i;
 	struct Graph* g=createGraph(n);
 	Node temp;
@@ -101,26 +95,17 @@ int gcount=0;
 	 }      
      
          if(k==1)
-          {
+  {
 	for(int i=0;i<g->vertices;i++)
 	{
-
-	  //printf("Enter 1 for the vertices adjacent to vertex %c\n",i+65);
 	  for(int j=0;j<g->vertices;j++)
 	 {
-	   //l1: printf("\nVertex %c : ",g->vertices-j-1+65);
-	   //scanf("%d",&key);
 	   if(i!=g->vertices-j-1)
 	   {
 	    Node nn=createnode(g->vertices-j-1);
 	     nn->next = g->adjLists[i];
 	    g->adjLists[i] = nn;
 	   }
-	     //else if(key!=0)
-	   //{
-	   // printf("Enter 1 to add and 0 to not \n");
-	   // goto l1;
-	   // }
 	 }
 	}
 	}
@@ -172,12 +157,8 @@ int gcount=0;
   }
 }
 
-
 void main()
 {
    for(int i=0;i<2;i++)
     ploter(i);
-  
-
-
 }

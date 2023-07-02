@@ -60,20 +60,20 @@ void main()
        count=0;
         //best case
          heapSort(arr,n);
-        fprintf(f2,"%d\t%d\n",n,count);
+        fprintf(f1,"%d\t%d\n",n,count);
         //printf("abhi");
         //printf("%d\t%d\n",n,count);
  
-     //best case
+     //worst case
       count=0;
       for(int i=0;i<n;i++)
       *(arr+i)=i+1;
         heapSort(arr,n);
-      fprintf(f1,"%d\t%d\n",n,count);
+      fprintf(f2,"%d\t%d\n",n,count);
       //printf("%d\t%d\n",n,count);
 
      //AVG case
-      for(int i=1;i<=n;i++)
+      for(int i=0;i<n;i++)
       *(arr+i)=rand()%n;
       count=0;
       heapSort(arr,n);

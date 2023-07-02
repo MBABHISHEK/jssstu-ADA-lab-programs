@@ -143,9 +143,9 @@ printf("Enter the adjacency LIST \n");
   printf("Enter 1 for the vertices adjacent to vertex %c\n",i+65); 
    for(int j=0;j<g->vertices;j++)
   {
-       printf("\nVertex %c : ",g->vertices-j-1+65);
-       scanf("%d",&key);
-       if(key==1)
+       //printf("\nVertex %c : ",g->vertices-j-1+65);
+       //scanf("%d",&key);
+       if(i!=g->vertices-j-1)
        {
             Node nn=createnode(g->vertices-j-1);
             nn->next = g->adjLists[i];

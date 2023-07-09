@@ -1,4 +1,5 @@
-// Warshall's Algorithm
+/* program to implement the Warshall's Algorithm*/
+
 #include<stdio.h>
 #include<stdlib.h>
 

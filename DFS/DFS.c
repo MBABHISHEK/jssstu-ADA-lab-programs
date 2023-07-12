@@ -2,9 +2,10 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-#define MAX 100
-int graph[MAX][MAX], visited[MAX], isCyclic = 0;
+
+int graph[100][100], visited[100], isCyclic = 0;
 int dfsCount = 0, count = 0;
+int dcount=0;
 
 void dfs(int n, int start, int parent) {
     visited[start] = 1;
@@ -13,13 +14,30 @@ void dfs(int n, int start, int parent) {
     for(int i=0; i<n; i++) {
         if(i!=parent && graph[start][i] && visited[i])
             isCyclic = 1;
+            dcount++;
         if(graph[start][i] && visited[i]==0)
             dfs(n, i, start);
     }
 }
 
-void main(){
+void dfs1(int n, int start, int parent) {
+    visited[start] = 1;
+    count++;
+    for(int i=0; i<n; i++) {
+        if(i!=parent && graph[start][i] && visited[i])
+            isCyclic = 1;
+            dcount++;
+        if(graph[start][i] && visited[i]==0)
+            dfs1(n, i, start);
+    }
+}
+
+
+void tester(){
     int n, start;
+    dfsCount = 0;
+     count = 0;
+      dcount=0;
     printf("Enter the number of nodes in the graph:\n");
     scanf("%d", &n);
     printf("Enter the Adjacency Matrix:\n");
@@ -37,7 +55,7 @@ void main(){
         }
         printf("\n");
     }
-
+    isCyclic =0;
     printf("\nDFS traversal starting from node %c\n", 65);
     dfs(n, 0, -1);
     dfsCount++;
@@ -61,4 +79,92 @@ void main(){
         printf("\nThe graph is cyclic\n");
     else
         printf("\nThe graph is not cyclic\n");
+}
+
+
+void ploter(int k)
+{
+    int v;
+    for(int i=1;i<=10;i++)
+  {
+    v=i;
+  int *arr[v];
+  for(int i=0;i<v;i++)
+  arr[i]=(int *)malloc(sizeof(int)*v); 
+
+
+ if(k==0)
+ {
+  for(int i=0;i<v;i++)
+{
+
+   for(int j=0;j<v;j++)
+  {
+       
+       if(i!=j)
+       {
+        arr[i][j] =1;
+       }
+       else
+       arr[i][j] =0;
+  }
+}
+ }
+
+if(k==1)
+{
+    for(int i=0;i<v;i++)
+    {
+        for(int j=0;j<v;j++)
+         arr[i][j] =0;
+    }
+    for(int i=0;i<v-1;i++)
+    {
+            arr[i][i+1]=1;
+    }
+
+}
+    isCyclic=0;
+     dfsCount = 0;
+     count = 0;
+     dcount=0;
+    dfs1(v, 0, -1);
+    dfsCount++;
+    int start;
+        start = 1;
+        while(count != v) {
+            if(visited[start] != 1) {
+                dfs1(v, start, -1);
+                dfsCount++;
+            }
+            start++;
+        }
+
+        printf("%d\t%d\n",v,dcount);
+    
+
+
+  }
+
+}
+
+
+void main()
+{
+    for(;;)
+    {
+        int key;
+        printf("ENTER THE CHOICE 1.TO TEST \n2.TO PLOT\nOTHER TO EXIT\n");
+        scanf("%d",&key);
+         
+         switch(key)
+         {
+           case 1:tester();break;
+           case 2:for(int i=0;i<2;i++)
+                   ploter(i);
+                   break;
+           default:exit(1);
+         } 
+
+    }
 }

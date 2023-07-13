@@ -8,6 +8,8 @@
    int info;
    struct node *next;
 };
+
+int dcount=0;
 struct Graph{
    int vertices;
    int edges;
@@ -24,7 +26,7 @@ struct Graph{
     return nn;
   }
   
-int stack[10];
+int stack[200];
 int top=-1;
  struct Graph* createGraph(int vertices) {
   struct Graph* graph = malloc(sizeof(struct Graph));
@@ -43,24 +45,37 @@ int top=-1;
   return graph;
 }
 
-
-int isparent(struct Graph *graph, int parent, int connect)
-{
-   if(parent==-1)
-   return 0;
-    Node temp = graph->adjLists[parent];
-    while(temp != NULL)
-    {
-      if(temp->info==connect)
-      return 1;
-      temp = temp->next;
-    }
-    return 0;
-  
-}
 int count=0,iscyclic=0;
 
 void DFS(struct Graph* graph, int vertex,int parent) {
+  struct node* adjList = graph->adjLists[vertex];
+  struct node* temp = adjList;
+ 
+  count++;
+  graph->visit[vertex] = 1;
+  graph->path[vertex] = 1;
+
+  while (temp != NULL) 
+  {
+
+    int connectedVertex = temp->info;
+     dcount++;
+    if (graph->visit[connectedVertex]==1&&graph->path[connectedVertex]==1)
+         {
+              iscyclic=1;
+         }
+      if(graph->visit[connectedVertex] == 0)
+           DFS(graph,connectedVertex,vertex);
+    
+    temp = temp->next;
+  }
+  dcount++;
+   graph->path[vertex] =0;
+    stack[++top] = vertex;
+  
+}
+
+void DFS1(struct Graph* graph, int vertex,int parent) {
   struct node* adjList = graph->adjLists[vertex];
   struct node* temp = adjList;
  
@@ -86,7 +101,9 @@ void DFS(struct Graph* graph, int vertex,int parent) {
   
 }
 
-void main()
+
+
+void tester()
 {
     int n;
     printf("ENTER THE NUUMBER OF VERTICES\n");
@@ -94,9 +111,9 @@ void main()
     struct Graph*   g=createGraph(n);
     Node temp;
     int key;
-
+     top=-1;
   
-printf("Enter the adjacency LIST \n");
+  printf("Enter the adjacency LIST \n");
   for(int i=0;i<g->vertices;i++)
 {
   printf("Enter 1 for the vertices adjacent to vertex %c\n",i+65); 
@@ -127,8 +144,10 @@ printf("Enter the adjacency LIST \n");
      printf("\n");
    }
   int dfscount=0;
+  count=0;
+  iscyclic=0;
    printf("\nDFS TRAVERSAL STARTING FROM NODE %C\n",65);
-   DFS(g,0,-1);
+   DFS1(g,0,-1);
    dfscount++;
    int start=1;
        while(count!=g->vertices)
@@ -136,7 +155,7 @@ printf("Enter the adjacency LIST \n");
             if(g->visit[start]!=1)
              {
                 printf("\n");
-                DFS(g,start,-1);
+                DFS1(g,start,-1);
                 dfscount++;
              }
              start++;
@@ -151,4 +170,99 @@ printf("Enter the adjacency LIST \n");
     for(int i=0;i<g->vertices;i++)
      printf("-->%c ", stack[i]+65);
     }
+    free(g);
   }
+
+void ploter(int k)
+{
+
+   FILE *f1,*f2;
+   f1=fopen("TOPODFSWROST.txt","a");
+   f2=fopen("TOPODFSBEST.txt","a");
+    for(int i=1;i<=20;i++)
+    {
+      int n=i;
+    
+     struct Graph*   g=createGraph(n);
+     Node temp;
+     int key;
+
+  
+ if(k==0)
+  for(int i=0;i<g->vertices;i++)
+{
+
+   for(int j=0;j<g->vertices;j++)
+  {
+       
+       if(i!=g->vertices-1-j)
+       {
+            Node nn=createnode(g->vertices-j-1);
+            nn->next = g->adjLists[i];
+            g->adjLists[i] = nn;
+       }
+  }
+}
+
+if(k==1)
+{
+    for(int i=0;i<g->vertices-1;i++)
+    {
+            Node nn=createnode(i+1);
+            nn->next = g->adjLists[i];
+            g->adjLists[i] = nn;
+    }
+
+}
+  count=0;
+  dcount=0;
+   int dfscount=0;
+   DFS(g,0,-1);
+   dfscount++;
+   int start=1;
+       while(count!=g->vertices)
+         {
+            if(g->visit[start]!=1)
+             {
+                printf("\n");
+                DFS(g,start,-1);
+                dfscount++;
+             }
+             start++;
+         }
+
+          printf("%d\t%d\n",n,dcount);
+         if(k==0)
+         fprintf(f2,"%d\t%d\n",n,count);
+         else
+          fprintf(f2,"%d\t%d\n",n,count);
+
+
+           free(g);
+    }
+
+
+fclose(f1);
+fclose(f2);
+}
+
+
+void main()
+{
+    for(;;)
+    {
+        int key;
+        printf("ENTER THE CHOICE 1.TO TEST \n2.TO PLOT\nOTHER TO EXIT\n");
+        scanf("%d",&key);
+         
+         switch(key)
+         {
+           case 1:tester();break;
+           case 2:for(int i=0;i<2;i++)
+                   ploter(i);
+                   break;
+           default:exit(1);
+         } 
+
+    }
+}

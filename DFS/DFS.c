@@ -84,6 +84,9 @@ void tester(){
 
 void ploter(int k)
 {
+
+    FILE *f1= fopen("DFSBEST.txt", "a");
+    FILE *f2=fopen("DFWOSR.txt", "a");
     int v;
     for(int i=1;i<=10;i++)
   {
@@ -140,11 +143,17 @@ if(k==1)
             start++;
         }
 
-        printf("%d\t%d\n",v,dcount);
-    
-
+           if(k==0)
+         fprintf(f2,"%d\t%d\n",v,count);
+         else
+          fprintf(f2,"%d\t%d\n",v,count);
+          printf("%d\t%d\n",v,dcount);
+     free(arr);
 
   }
+
+  fclose(f1);
+  fclose(f2);
 
 }
 

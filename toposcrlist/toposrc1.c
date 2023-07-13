@@ -113,17 +113,7 @@ while(temp->cnt!=0)
         }
            count3++;
 }
-/*
-if(cnt!=graph->vertices)
-{
-  printf("Cycles exist no topological sorting possible\n");
-}
-else
-{
-  printf("The topological sorting is\n"); 
-  for(int i=0;i<graph->vertices;i++)
-   printf("%c\t",s[i]+65);
-}*/
+
 }
 
 
@@ -180,18 +170,6 @@ if(k==1)
     }
 
 }
-  /* for(int i=0;i<g->vertices;i++)
-  {
-     temp=g->adjLists[i];
-     printf("THE VERTEX ADJACENT TO %c : ",i+65);
-      while(temp!=NULL)
-       {
-        printf("%c ",temp->info+65);
-        temp=temp->next;
-       }
-     printf("\n");
-   }
-*/
    count1=0;
    count2=0;
    count3=0;
@@ -224,8 +202,127 @@ fclose(f1);
 fclose(f2);
 }
 
+
+void sourceremove1( struct Graph* graph,QUE *temp,int inq[],int flag[])
+{
+int cnt=0; 
+while(temp->cnt!=0)
+{
+  int source=temp->arr[temp->f]; 
+   temp->f=(temp->f+1)%graph->vertices;
+   s[cnt]=source;
+   temp->cnt=temp->cnt-1; 
+    cnt++;
+    Node adj;
+    adj=graph->adjLists[source];
+        while(adj!=NULL)
+        {
+             int k=adj->info;
+             inq[k]--;
+             adj=adj->next;
+    
+
+             if(inq[k]==0&&flag[k]==0)
+            {
+             temp->r=(temp->r+1)%graph->vertices; 
+              temp->arr[temp->r]=k; 
+              temp->cnt=temp->cnt+1; 
+               flag[k]=1;
+            }
+        }
+}
+
+if(cnt!=graph->vertices)
+{
+  printf("Cycles exist no topological sorting possible\n");
+}
+else
+{
+
+  printf("The topological sorting is\n"); 
+  for(int i=0;i<graph->vertices;i++)
+   printf("%c\t",s[i]+65);
+  
+}
+}
+
+void tester()
+{
+     int n;
+     printf("ENTER THE NUUMBER OF VERTICES\n");
+    scanf("%d",&n);
+   struct Graph*   g=createGraph(n);
+   Node temp;
+  int key;
+
+  
+printf("Enter the adjacency LIST \n");
+  for(int i=0;i<g->vertices;i++)
+{
+  printf("Enter 1 for the vertices adjacent to vertex %c\n",i+65); 
+   for(int j=0;j<g->vertices;j++)
+  {
+       printf("\nVertex %c : ",g->vertices-j-1+65);
+       scanf("%d",&key);
+       if(key!=0)
+       {
+            Node nn=createnode(g->vertices-j-1);
+            nn->next = g->adjLists[i];
+            g->adjLists[i] = nn;
+    
+       }
+  }
+}
+
+    
+   for(int i=0;i<g->vertices;i++)
+  {
+     temp=g->adjLists[i];
+     printf("THE VERTEX ADJACENT TO %c : ",i+65);
+      while(temp!=NULL)
+       {
+        printf("%c ",temp->info+65);
+        temp=temp->next;
+       }
+     printf("\n");
+   }
+  QUE q;
+  q.f=0;
+  q.r=-1;
+  q.cnt=0;
+   q.arr=(int*)malloc(sizeof(int)*g->vertices);
+
+  int *inq=(int *)malloc(sizeof(int)*g->vertices);
+   for(int i=0;i<g->vertices;i++)
+   inq[i]=0;
+ int *flag=(int *)malloc(sizeof(int)*g->vertices); 
+ for(int i=0;i<g->vertices;i++)
+ flag[i]=0; 
+ 
+   indegree(g,inq,&q,flag);
+   sourceremove1(g,&q,inq,flag);
+
+printf("\n");
+free(g);
+}
+
+
 void main()
 {
-    for(int i=0;i<2;i++)
-    ploter(i);
+    for(;;)
+    {
+        int key;
+        printf("ENTER THE CHOICE 1.TO TEST \n2.TO PLOT\nOTHER TO EXIT\n");
+        scanf("%d",&key);
+         
+         switch(key)
+         {
+           case 1:tester();break;
+           case 2:for(int i=0;i<2;i++)
+                   ploter(i);
+                   break;
+           default:exit(1);
+         } 
+
+    }
 }

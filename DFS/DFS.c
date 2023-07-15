@@ -6,14 +6,24 @@
 int graph[100][100], visited[100], isCyclic = 0;
 int dfsCount = 0, count = 0;
 int dcount=0;
-
+int path[100];
+int d;
 void dfs(int n, int start, int parent) {
     visited[start] = 1;
     count++;
     printf("--> %c ", start+65);
     for(int i=0; i<n; i++) {
+        
+        if(d==1)
+        {
+          if(i!=parent && graph[start][i] && visited[i]==1 && path[i]==1)
+           isCyclic = 1;
+        }
+          else
+          {
         if(i!=parent && graph[start][i] && visited[i])
             isCyclic = 1;
+          }
             dcount++;
         if(graph[start][i] && visited[i]==0)
             dfs(n, i, start);
@@ -26,11 +36,13 @@ void dfs1(int n, int start, int parent) {
     for(int i=0; i<n; i++) {
         if(i!=parent && graph[start][i] && visited[i])
             isCyclic = 1;
+        
             dcount++;
         if(graph[start][i] && visited[i]==0)
             dfs1(n, i, start);
     }
 }
+        
 
 
 void tester(){
@@ -38,6 +50,7 @@ void tester(){
     dfsCount = 0;
      count = 0;
       dcount=0;
+      d=0;
     printf("Enter the number of nodes in the graph:\n");
     scanf("%d", &n);
     printf("Enter the Adjacency Matrix:\n");
@@ -46,7 +59,10 @@ void tester(){
             scanf("%d", &graph[i][j]);
         }
         visited[i] = 0;
+        path[i] =0;
     }
+    printf("enter is the 1 graph is directed to:\n");
+    scanf("%d", &d);
 
     printf("the Adjacency Matrix:\n");
     for(int i=0; i<n; i++){

@@ -2,6 +2,9 @@
 #include<stdlib.h>
 #define x 10
 #define y 100
+
+int test=0;
+
 float euclid(int m,int n)
 {
 int r;
@@ -13,6 +16,8 @@ r=m%n;
 m=n;
 n=r;
 }
+if(test==1)
+printf("THE GCD IS %d\n",m);
 return count;
 }
 float consec(int m, int n)
@@ -35,6 +40,9 @@ min-=1;
 else
 min-=1;
 }
+
+if(test==1)
+printf("THE GCD IS %d\n",min);
 return count;
 }
 float modified(int m,int n)
@@ -50,6 +58,9 @@ temp=m;m=n;n=temp;
 m=m-n;
 count +=1 ;
 }
+
+if(test==1)
+printf("THE GCD IS %d\n",m);
 return count; // m is the GCD
 }
 void analysis(int ch)
@@ -101,22 +112,70 @@ fprintf(fp1,"%d %.2f\n",i,maxcount);
 fclose(fp1);
 }
 }
-int main()
+void plotter()
 {
 int ch;
 while(1)
 {
 printf("GCD\n");
-printf("1.Euclid\n3.modified Euclid\n2.consecutive integer method\n");
+printf("1.Euclid\n3.modified Euclid\n2.consecutive integer method\n0 to exit\n");
 scanf("%d",&ch);
+if(ch ==0)
+break;
 switch(ch)
 {
 case 1:
 case 2:
 case 3: analysis(ch);
 break;
-default:exit(1);
+default:break;
 }
 }
-return 0;
+return ;
+}
+
+
+void tester()
+{
+int ch;
+while(1)
+{
+printf("GCD\n");
+printf("1.Euclid\n2.modified Euclid\n3.consecutive integer method\n0to exit\n");
+scanf("%d",&ch);
+if(ch==0)
+break;
+printf("ENTER THE VALUES M AND N\n");
+int m,n;
+scanf("%d",&m);
+scanf("%d",&n);
+switch(ch)
+{
+case 1:euclid(m,n);break;
+case 2:modified(m,n);break;
+case 3:consec(m,n);break;
+default:break;
+}
+}
+}
+
+
+
+
+void main()
+{
+    for(;;)
+    {
+    printf("ENTER THE CHOICE\n1.TO TEST\n2.TO PLOTTER\n3.TO EXI\n");
+    scanf("%d",&test);
+    switch(test)
+    {
+        case 1:tester();break;
+        case 2:plotter();break;
+        default:exit(0);
+    }
+    }
+
+
+
 }

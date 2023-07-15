@@ -1,4 +1,6 @@
 /* program to implement merge sort and perfrom its analysis*/
+/*TESTER IS USED TO CHECK THE CORRECTNESS OF THE ALGORITH*/
+/*PLOTTER IS USED TO PLOT THE GRAPH*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>

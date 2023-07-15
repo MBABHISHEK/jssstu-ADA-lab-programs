@@ -153,11 +153,8 @@ void main()
          switch(key)
          {
            case 1:tester();break;
-           case 2:for(int i=0;i<2;i++)
-                   plotter(i);
-                   break;
+           case 2:plotter();break;
            default:exit(1);
          } 
-
     }
 }

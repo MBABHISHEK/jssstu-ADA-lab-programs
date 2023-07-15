@@ -9,11 +9,11 @@
 int count;
 
 
-void swap(int a,int b)
+void swap(int  *a,int *  b)
 {
-  int temp=a;
-  a=b;
-  b=temp;
+  int temp=*a;
+  *a=*b;
+  *b=temp;
 
 }
 
@@ -34,12 +34,12 @@ void swap(int a,int b)
           count++;
           j--;
           }while(arr[j]>pivot);
-          swap(arr[i],arr[j]);
+          swap(&arr[i],&arr[j]);
 
      }while(i<j);
      
-      swap(arr[i],arr[j]);
-      swap(arr[beg],arr[j]);
+      swap(&arr[i],&arr[j]);
+      swap(&arr[beg],&arr[j]);
 
       return j;
  }
@@ -56,9 +56,9 @@ void swap(int a,int b)
 
 }
 
-void main()
+void plotter()
 {
- 
+
    int *arr,n;
    srand(time(NULL));
    FILE *f1,*f2,*f3;
@@ -104,4 +104,50 @@ void main()
     fclose(f1);
     fclose(f2);
     fclose(f3);
+}
+
+
+
+void tester()
+{
+  int *arr, n;
+   printf("ENTER THE NUMBER OF ELEMENTS\n");
+   scanf("%d",&n);
+
+   arr=(int *)malloc(sizeof(int)*n);
+   printf("ENTER THE ELEMENTS OF THE ARRAY\n");
+      for(int i=0;i<n;i++)
+       scanf("%d",&arr[i]);
+
+  printf("THE ELEMENTS OF THE ARRAY BEFORE SORTING\n"); 
+    for(int i=0;i<n;i++)
+       printf("%d ",arr[i]);
+    printf("\n");
+
+      quicksort(arr,0,n-1);
+
+      printf("THE ELEMENTS OF THE ARRAY AFTER SORTING\n"); 
+    for(int i=0;i<n;i++)
+       printf("%d ",arr[i]);
+       printf("\n");
+       printf("\n");
+}
+
+
+void main()
+{
+    for(;;)
+    {
+        int key;
+        printf("ENTER THE CHOICE \n1.TO TEST \n2.TO PLOT\nO  TO EXIT\n");
+        scanf("%d",&key);
+         
+         switch(key)
+         {
+           case 1:tester();break;
+           case 2:plotter();break;
+           default:exit(1);
+         } 
+
+    }
 }

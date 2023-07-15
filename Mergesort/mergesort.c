@@ -71,7 +71,7 @@ void worst(int arr[],int beg,int end)
 
 }
 
-void main()
+void plotter()
 {
    int *arr,n;
    srand(time(NULL));
@@ -112,4 +112,52 @@ void main()
     fclose(f2);
     fclose(f3);
     fclose(f4);
+}
+
+
+
+void tester()
+{
+  int *arr, n;
+   printf("ENTER THE NUMBER OF ELEMENTS\n");
+   scanf("%d",&n);
+
+   arr=(int *)malloc(sizeof(int)*n);
+   printf("ENTER THE ELEMENTS OF THE ARRAY\n");
+      for(int i=0;i<n;i++)
+       scanf("%d",&arr[i]);
+
+  printf("THE ELEMENTS OF THE ARRAY BEFORE SORTING\n"); 
+    for(int i=0;i<n;i++)
+       printf("%d ",arr[i]);
+    printf("\n");
+
+      mergesort(arr,0,n-1);
+
+      printf("THE ELEMENTS OF THE ARRAY BEFORE SORTING\n"); 
+    for(int i=0;i<n;i++)
+       printf("%d ",arr[i]);
+       printf("\n");
+       printf("\n");
+}
+
+
+void main()
+{
+    for(;;)
+    {
+        int key;
+        printf("ENTER THE CHOICE \n1.TO TEST \n2.TO PLOT\nO  TO EXIT\n");
+        scanf("%d",&key);
+         
+         switch(key)
+         {
+           case 1:tester();break;
+           case 2:for(int i=0;i<2;i++)
+                   plotter(i);
+                   break;
+           default:exit(1);
+         } 
+
+    }
 }

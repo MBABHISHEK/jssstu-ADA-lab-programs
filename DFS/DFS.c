@@ -33,6 +33,7 @@ void dfs(int n, int start, int parent) {
 void dfs1(int n, int start, int parent) {
     visited[start] = 1;
     count++;
+    path [start]=1;
     for(int i=0; i<n; i++) {
         if(i!=parent && graph[start][i] && visited[i])
             isCyclic = 1;
@@ -41,6 +42,7 @@ void dfs1(int n, int start, int parent) {
         if(graph[start][i] && visited[i]==0)
             dfs1(n, i, start);
     }
+    path[start]=0;
 }
         
 

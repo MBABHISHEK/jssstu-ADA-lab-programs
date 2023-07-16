@@ -1,55 +1,52 @@
-//Knapsac problem using memory function
-#include<stdio.h>
-int value[100], weight[100];
-int knap[100][100];
+#include <stdio.h>
+#include <stdlib.h>
 
-int maximum(int a, int b) {
-    int max = (a > b) ? a : b;
-    return max;
+int max(int a, int b){
+	return (a>b) ? a : b;
 }
 
-int knapsac(int i, int j) {
-    int v;
-    if(knap[i][j] < 0) {
-        if(j<weight[i]) {
-            v = knapsac(i-1, j);
-        } else {
-            v = maximum(knapsac(i-1, j), (value[i-1] + knapsac(i-1, j-weight[i-1])));
-        }
-    }
-    knap[i][j] = v;
-    return knap[i][j];
+int t[100][100], v[100], w[100], n, m, i, j;
+
+int knap(int i, int j){
+	if (t[i][j]==-1){
+		if (j<w[i])
+			t[i][j] = knap(i-1,j);
+		else
+			t[i][j] = max(knap(i-1,j),v[i]+knap(i-1,j-w[i]));
+	}
+	return t[i][j];
 }
 
-int main() {
-    int n, capacity;
-    printf("\nEnter number of items:\n");
-    scanf("%d", &n);
-    printf("\nEnter the value and weight of each item:\n");
-    printf("Value  Weight\n");
-    for(int i=0; i<n; i++) {
-        scanf("%d%d", &value[i], &weight[i]);
-    }
-    printf("\nEnter the maximum capacity of knapsac:\n");
-    scanf("%d", &capacity);
-    int i, j;
-    for(i=0; i<n+1; i++) {
-        for(j=0; j<capacity+1; j++) {
-            if(i==0 || j==0)
-                knap[i][j] = 0;
-            else 
-                knap[i][j] = -1;
-        }
-    }
-    int sol = knapsac(n, capacity);
-    printf("\nThe optimum knapsac value is: %d\n", sol);
+void main(){
 	
-	printf("THE COMPOSITON IS \n");
+	printf("No. of Items>> ");
+	scanf("%d",&n);
+	printf("Sack Capacity>> ");
+	scanf("%d",&m);
+	
+	
+	printf("Weight\tValue\n");
+	for(i=1;i<n+1;i++){
+		scanf("%d\t%d",&w[i],&v[i]);
+	}
+	
+	for(i=0;i<n+1;i++){
+		for(j=0;j<m+1;j++){
+			if (i==0||j==0)
+				t[i][j]=0;
+			else
+				t[i][j]=-1;
+		}
+	}
+	
+	printf("Maximum Value: %d\n",knap(n,m));
+	
+	printf("Composition:\n");
 	for(i=n;i>0;i--){
-		if (knap[i][m] != knap[i-1][m]){
+		if (t[i][m] != t[i-1][m]){
 			printf("%d ",i);
 			m = m-w[i];
 		}
 	}
-    return 0;
+	printf("\n");
 }

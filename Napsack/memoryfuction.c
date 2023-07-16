@@ -43,5 +43,13 @@ int main() {
     }
     int sol = knapsac(n, capacity);
     printf("\nThe optimum knapsac value is: %d\n", sol);
+	
+	printf("THE COMPOSITON IS \n");
+	for(i=n;i>0;i--){
+		if (knap[i][m] != knap[i-1][m]){
+			printf("%d ",i);
+			m = m-w[i];
+		}
+	}
     return 0;
 }

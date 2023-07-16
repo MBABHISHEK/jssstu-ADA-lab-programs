@@ -11,12 +11,18 @@ int minimum (int a, int b) {
     int min = (a<b) ? a : b;
     return min;
 }
-
+int count=0
 void floyd (int n) {
+    int t;
     for(int k=1; k<=n; k++) {
         for(int i=1; i<=n; i++) {
+              t=graph[i][k];
             for(int j=1; j<=n; j++) {
+                if(t<graph[i][k])
+                {
+                    count++;
                 graph[i][j] = minimum(graph[i][j], (graph[i][k] + graph[k][j]));
+                }
             }
         }
     }

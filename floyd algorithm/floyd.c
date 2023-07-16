@@ -18,7 +18,7 @@ void floyd (int n) {
         for(int i=1; i<=n; i++) {
               t=graph[i][k];
             for(int j=1; j<=n; j++) {
-                if(t<graph[i][k])
+                if(t<graph[i][j])
                 {
                     count++;
                 graph[i][j] = minimum(graph[i][j], (graph[i][k] + graph[k][j]));

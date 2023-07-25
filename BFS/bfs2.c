@@ -3,7 +3,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 int bfsCount = 0, cyclic=0;
-int count = 0;
+int count = 0;//to count how many vertex visited 
 int orderCount = 0;
 
 int graph[100][100], visited[100];

@@ -126,31 +126,7 @@ void main()
        // fprintf(f2,"%d\t%d\n",n,count);
         //printf("abhi");
         printf("%d\t%d\n",n,count);
- 
-     //best case
-      count=0;
-      for(int i=1;i<=n;i++)
-      *(arr+i)=i+1;
-        heap(arr,n);
-         heapify(arr, n); 
-      //fprintf(f1,"%d\t%d\n",n,count);
-      printf("%d\t%d\n",n,count);
 
-     //AVG case
-      for(int i=1;i<=n;i++)
-      *(arr+i)=rand()%n;
-      count=0;
-      heap(arr,n);
-      heapify(arr, n); 
-      //fprintf(f3,"%d\t%d\n",n,count);
-       printf("%d\t%d\n",n,count);
-
-      if(n<10000)
-      n=n*10;
-      else
-      n=n+10000;
-      free(arr);
-    }
     fclose(f1);
     fclose(f2);
     fclose(f3);*/
